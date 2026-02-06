@@ -1,100 +1,121 @@
 package com.heitor.model;
 
 import com.heitor.enumerate.StatusUsuario;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 import java.util.Date;
 
+@Entity
+@Table(name = "usuario")
 public class Usuario {
-    private Long id_usuario;
-    private String nome_usuario;
-    private String telefone_usuario;
-    private String email_usuario;
-    private StatusUsuario status_usuario;
-    private Endereco endereco_usuario;
-    private Date data_cadastro_usuario;
 
-    public Usuario(Long id_usuario,
-                   String nome_usuario,
-                   String telefone_usuario,
-                   String email_usuario,
-                   StatusUsuario status_usuario,
-                   Endereco endereco_usuario,
-                   Date data_cadastro_usuario) {
-        this.id_usuario = id_usuario;
-        this.nome_usuario = nome_usuario;
-        this.telefone_usuario = telefone_usuario;
-        this.email_usuario = email_usuario;
-        this.status_usuario = status_usuario;
-        this.endereco_usuario = endereco_usuario;
-        this.data_cadastro_usuario = data_cadastro_usuario;
+    @Id
+    @Column(name = "id")
+    private Long id;
+
+    @Column(name = "nome_usuario")
+    private String nome;
+
+    @Column(name = "telefone_usuario")
+    private String telefone;
+
+    @Column(name = "email_usuario")
+    private String email;
+
+    private StatusUsuario status;
+
+    private Endereco endereco;
+
+    @Column(name = "data_cadastro")
+    private Date dataCadastro;
+
+    public Usuario() {}
+
+    public Usuario(Long id,
+                   String nome,
+                   String telefone,
+                   String email,
+                   StatusUsuario status,
+                   Endereco endereco,
+                   Date dataCadastro) {
+        this.id = id;
+        this.nome = nome;
+        this.telefone = telefone;
+        this.email = email;
+        this.status = status;
+        this.endereco = endereco;
+        this.dataCadastro = dataCadastro;
     }
 
-    public Long getId_usuario() {
-        return id_usuario;
+    public Long getId() {
+        return id;
     }
 
-    public void setId_usuario(Long id_usuario) {
-        this.id_usuario = id_usuario;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public String getNome_usuario() {
-        return nome_usuario;
+    public String getNome() {
+        return nome;
     }
 
-    public void setNome_usuario(String nome_usuario) {
-        this.nome_usuario = nome_usuario;
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
-    public String getTelefone_usuario() {
-        return telefone_usuario;
+    public String getTelefone() {
+        return telefone;
     }
 
-    public void setTelefone_usuario(String telefone_usuario) {
-        this.telefone_usuario = telefone_usuario;
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
     }
 
-    public String getEmail_usuario() {
-        return email_usuario;
+    public String getEmail() {
+        return email;
     }
 
-    public void setEmail_usuario(String email_usuario) {
-        this.email_usuario = email_usuario;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public StatusUsuario getStatus_usuario() {
-        return status_usuario;
+    public StatusUsuario getStatus() {
+        return status;
     }
 
-    public void setStatus_usuario(StatusUsuario status_usuario) {
-        this.status_usuario = status_usuario;
+    public void setStatus(StatusUsuario status) {
+        this.status = status;
     }
 
-    public Endereco getEndereco_usuario() {
-        return endereco_usuario;
+    public Endereco getEndereco() {
+        return endereco;
     }
 
-    public void setEndereco_usuario(Endereco endereco_usuario) {
-        this.endereco_usuario = endereco_usuario;
+    public void setEndereco(Endereco endereco) {
+        this.endereco = endereco;
     }
 
-    public Date getData_cadastro_usuario() {
-        return data_cadastro_usuario;
+    public Date getDataCadastro() {
+        return dataCadastro;
     }
 
-    public void setData_cadastro_usuario(Date data_cadastro_usuario) {
-        this.data_cadastro_usuario = data_cadastro_usuario;
+    public void setDataCadastro(Date dataCadastro) {
+        this.dataCadastro = dataCadastro;
     }
 
     @Override
     public String toString() {
         return "Usuario{" +
-                "id_usuario=" + id_usuario +
-                ", nome_usuario='" + nome_usuario + '\'' +
-                ", telefone_usuario='" + telefone_usuario + '\'' +
-                ", email_usuario='" + email_usuario + '\'' +
-                ", status_usuario=" + status_usuario +
-                ", endereco_usuario=" + endereco_usuario +
-                ", data_cadastro_usuario=" + data_cadastro_usuario +
+                "id=" + id +
+                ", nome='" + nome + '\'' +
+                ", talefone='" + telefone + '\'' +
+                ", email='" + email + '\'' +
+                ", status=" + status +
+                ", endereco=" + endereco +
+                ", dataCadastro=" + dataCadastro +
                 '}';
     }
 }
