@@ -1,34 +1,51 @@
 package com.heitor.model;
 
 import com.heitor.enumerate.StatusEmprestimo;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 import java.util.Date;
 
+@Entity
+@Table(name = "emprestimo")
 public class Emprestimo {
-    private Long id_emprestimo;
+
+    @Id
+    @Column(name = "id")
+    private Long id;
+
     private Usuario id_usuario_emprestimo;
-    private Date data_emprestimo;
-    private Date data_devolucao_emprestimo;
-    private StatusEmprestimo status_emprestimo;
 
-    public Emprestimo(Long id_emprestimo,
+    @Column(name = "data_emprestimo")
+    private Date dataEmprestimo;
+
+    @Column(name = "data_devolucao_emprestimo")
+    private Date dataDevolucao;
+
+    private StatusEmprestimo statusEmprestimo;
+
+    public Emprestimo() {}
+
+    public Emprestimo(Long id,
                       Usuario id_usuario_emprestimo,
-                      Date data_emprestimo,
-                      Date data_devolucao_emprestimo,
-                      StatusEmprestimo status_emprestimo) {
-        this.id_emprestimo = id_emprestimo;
+                      Date dataEmprestimo,
+                      Date dataDevolucao,
+                      StatusEmprestimo statusEmprestimo) {
+        this.id = id;
         this.id_usuario_emprestimo = id_usuario_emprestimo;
-        this.data_emprestimo = data_emprestimo;
-        this.data_devolucao_emprestimo = data_devolucao_emprestimo;
-        this.status_emprestimo = status_emprestimo;
+        this.dataEmprestimo = dataEmprestimo;
+        this.dataDevolucao = dataDevolucao;
+        this.statusEmprestimo = statusEmprestimo;
     }
 
-    public Long getId_emprestimo() {
-        return id_emprestimo;
+    public Long getId() {
+        return id;
     }
 
-    public void setId_emprestimo(Long id_emprestimo) {
-        this.id_emprestimo = id_emprestimo;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public Usuario getId_usuario_emprestimo() {
@@ -39,38 +56,38 @@ public class Emprestimo {
         this.id_usuario_emprestimo = id_usuario_emprestimo;
     }
 
-    public Date getData_emprestimo() {
-        return data_emprestimo;
+    public Date getDataEmprestimo() {
+        return dataEmprestimo;
     }
 
-    public void setData_emprestimo(Date data_emprestimo) {
-        this.data_emprestimo = data_emprestimo;
+    public void setDataEmprestimo(Date dataEmprestimo) {
+        this.dataEmprestimo = dataEmprestimo;
     }
 
-    public Date getData_devolucao_emprestimo() {
-        return data_devolucao_emprestimo;
+    public Date getDataDevolucao() {
+        return dataDevolucao;
     }
 
-    public void setData_devolucao_emprestimo(Date data_devolucao_emprestimo) {
-        this.data_devolucao_emprestimo = data_devolucao_emprestimo;
+    public void setDataDevolucao(Date dataDevolucao) {
+        this.dataDevolucao = dataDevolucao;
     }
 
-    public StatusEmprestimo getStatus_emprestimo() {
-        return status_emprestimo;
+    public StatusEmprestimo getStatusEmprestimo() {
+        return statusEmprestimo;
     }
 
-    public void setStatus_emprestimo(StatusEmprestimo status_emprestimo) {
-        this.status_emprestimo = status_emprestimo;
+    public void setStatusEmprestimo(StatusEmprestimo statusEmprestimo) {
+        this.statusEmprestimo = statusEmprestimo;
     }
 
     @Override
     public String toString() {
         return "Emprestimo{" +
-                "id_emprestimo=" + id_emprestimo +
+                "id=" + id +
                 ", id_usuario_emprestimo=" + id_usuario_emprestimo +
-                ", data_emprestimo=" + data_emprestimo +
-                ", data_devolucao_emprestimo=" + data_devolucao_emprestimo +
-                ", status_emprestimo=" + status_emprestimo +
+                ", dataEmprestimo=" + dataEmprestimo +
+                ", dataDevolucao=" + dataDevolucao +
+                ", statusEmprestimo=" + statusEmprestimo +
                 '}';
     }
 }

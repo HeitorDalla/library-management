@@ -1,26 +1,41 @@
 package com.heitor.model;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
 import java.util.Date;
 
+@Entity
+@Table(name = "itemEmprestimo")
 public class ItemEmprestimo {
-    private Long id_item_emprestimo;
+
+    @Id
+    @Column(name = "id")
+    private Long id;
+
     private Emprestimo id_emprestimo_item_emprestimo;
-    private Date data_devolucao_item_emprestimo;
 
-    public ItemEmprestimo(Long id_item_emprestimo,
+    @Column(name = "data_devolucao_item_emprestimo")
+    private Date dataDevolucao;
+
+    public ItemEmprestimo() {}
+
+    public ItemEmprestimo(Long id,
                           Emprestimo id_emprestimo_item_emprestimo,
-                          Date data_devolucao_item_emprestimo) {
-        this.id_item_emprestimo = id_item_emprestimo;
+                          Date dataDevolucao) {
+        this.id = id;
         this.id_emprestimo_item_emprestimo = id_emprestimo_item_emprestimo;
-        this.data_devolucao_item_emprestimo = data_devolucao_item_emprestimo;
+        this.dataDevolucao = dataDevolucao;
     }
 
-    public Long getId_item_emprestimo() {
-        return id_item_emprestimo;
+    public Long getId() {
+        return id;
     }
 
-    public void setId_item_emprestimo(Long id_item_emprestimo) {
-        this.id_item_emprestimo = id_item_emprestimo;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public Emprestimo getId_emprestimo_item_emprestimo() {
@@ -31,20 +46,20 @@ public class ItemEmprestimo {
         this.id_emprestimo_item_emprestimo = id_emprestimo_item_emprestimo;
     }
 
-    public Date getData_devolucao_item_emprestimo() {
-        return data_devolucao_item_emprestimo;
+    public Date getDataDevolucao() {
+        return dataDevolucao;
     }
 
-    public void setData_devolucao_item_emprestimo(Date data_devolucao_item_emprestimo) {
-        this.data_devolucao_item_emprestimo = data_devolucao_item_emprestimo;
+    public void setDataDevolucao(Date dataDevolucao) {
+        this.dataDevolucao = dataDevolucao;
     }
 
     @Override
     public String toString() {
         return "ItemEmprestimo{" +
-                "id_item_emprestimo=" + id_item_emprestimo +
+                "id=" + id +
                 ", id_emprestimo_item_emprestimo=" + id_emprestimo_item_emprestimo +
-                ", data_devolucao_item_emprestimo=" + data_devolucao_item_emprestimo +
+                ", dataDevolucao=" + dataDevolucao +
                 '}';
     }
 }

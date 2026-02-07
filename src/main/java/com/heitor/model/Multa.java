@@ -1,37 +1,56 @@
 package com.heitor.model;
 
 import com.heitor.enumerate.StatusMulta;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 import java.util.Date;
 
+@Entity
+@Table(name = "multa")
 public class Multa {
-    private Long id_multa;
+
+    @Id
+    @Column(name = "id")
+    private Long id;
+
     private Emprestimo id_emprestimo_multa;
-    private float valor_multa;
-    private StatusMulta status_multa;
-    private Date data_geracao_multa;
-    private Date data_pagamento_multa;
 
-    public Multa(Long id_multa,
+    @Column(name = "valor_multa")
+    private float valor;
+
+    private StatusMulta status;
+
+    @Column(name = "data_geracao_multa")
+    private Date dataGeracao;
+
+    @Column(name = "data_pagamento_multa")
+    private Date dataPagamento;
+
+    public Multa() {}
+
+    public Multa(Long id,
                  Emprestimo id_emprestimo_multa,
-                 float valor_multa,
-                 StatusMulta status_multa,
-                 Date data_geracao_multa,
-                 Date data_pagamento_multa) {
-        this.id_multa = id_multa;
+                 float valor,
+                 StatusMulta status,
+                 Date dataGeracao,
+                 Date dataPagamento) {
+        this.id = id;
         this.id_emprestimo_multa = id_emprestimo_multa;
-        this.valor_multa = valor_multa;
-        this.status_multa = status_multa;
-        this.data_geracao_multa = data_geracao_multa;
-        this.data_pagamento_multa = data_pagamento_multa;
+        this.valor = valor;
+        this.status = status;
+        this.dataGeracao = dataGeracao;
+        this.dataPagamento = dataPagamento;
     }
 
-    public Long getId_multa() {
-        return id_multa;
+    public Long getId() {
+        return id;
     }
 
-    public void setId_multa(Long id_multa) {
-        this.id_multa = id_multa;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public Emprestimo getId_emprestimo_multa() {
@@ -42,47 +61,47 @@ public class Multa {
         this.id_emprestimo_multa = id_emprestimo_multa;
     }
 
-    public float getValor_multa() {
-        return valor_multa;
+    public float getValorMulta() {
+        return valor;
     }
 
-    public void setValor_multa(float valor_multa) {
-        this.valor_multa = valor_multa;
+    public void setValorMulta(float valor) {
+        this.valor = valor;
     }
 
-    public StatusMulta getStatus_multa() {
-        return status_multa;
+    public StatusMulta getStatus() {
+        return status;
     }
 
-    public void setStatus_multa(StatusMulta status_multa) {
-        this.status_multa = status_multa;
+    public void setStatus(StatusMulta status) {
+        this.status = status;
     }
 
-    public Date getData_geracao_multa() {
-        return data_geracao_multa;
+    public Date getDataGeracao() {
+        return dataGeracao;
     }
 
-    public void setData_geracao_multa(Date data_geracao_multa) {
-        this.data_geracao_multa = data_geracao_multa;
+    public void setDataGeracao(Date dataGeracao) {
+        this.dataGeracao = dataGeracao;
     }
 
-    public Date getData_pagamento_multa() {
-        return data_pagamento_multa;
+    public Date getDataPagamento() {
+        return dataPagamento;
     }
 
-    public void setData_pagamento_multa(Date data_pagamento_multa) {
-        this.data_pagamento_multa = data_pagamento_multa;
+    public void setDataPagamento(Date dataPagamento) {
+        this.dataPagamento = dataPagamento;
     }
 
     @Override
     public String toString() {
         return "Multa{" +
-                "id_multa=" + id_multa +
+                "id=" + id +
                 ", id_emprestimo_multa=" + id_emprestimo_multa +
-                ", valor_multa=" + valor_multa +
-                ", status_multa=" + status_multa +
-                ", data_geracao_multa=" + data_geracao_multa +
-                ", data_pagamento_multa=" + data_pagamento_multa +
+                ", valorMulta=" + valor +
+                ", status=" + status +
+                ", dataGeracao=" + dataGeracao +
+                ", dataPagamento=" + dataPagamento +
                 '}';
     }
 }

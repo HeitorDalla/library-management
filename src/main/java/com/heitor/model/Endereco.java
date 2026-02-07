@@ -1,31 +1,57 @@
 package com.heitor.model;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "endereco")
 public class Endereco {
+
+    @Id
+    @Column(name = "id")
     private Long id_endereco;
-    private String logradouro_endereco;
-    private String numero_endereco;
-    private String complemento_endereco;
-    private String bairro_endereco;
-    private String cidade_endereco;
-    private String estado_endereco;
-    private String cep_endereco;
+
+    @Column(name = "logradouro_endereco")
+    private String logradouro;
+
+    @Column(name = "numero_endereco")
+    private String numero;
+
+    @Column(name = "complemento_endereco")
+    private String complemento;
+
+    @Column(name = "bairro_endereco")
+    private String bairro;
+
+    @Column(name = "cidade_endereco")
+    private String cidade;
+
+    @Column(name = "estado_endereco")
+    private String estado;
+
+    @Column(name = "cep_endereco")
+    private String cep;
+
+    public Endereco() {}
 
     public Endereco(Long id_endereco,
-                    String logradouro_endereco,
-                    String numero_endereco,
-                    String complemento_endereco,
-                    String bairro_endereco,
-                    String cidade_endereco,
-                    String estado_endereco,
-                    String cep_endereco) {
+                    String logradouro,
+                    String numero,
+                    String complemento,
+                    String bairro,
+                    String cidade,
+                    String estado,
+                    String cep) {
         this.id_endereco = id_endereco;
-        this.logradouro_endereco = logradouro_endereco;
-        this.numero_endereco = numero_endereco;
-        this.complemento_endereco = complemento_endereco;
-        this.bairro_endereco = bairro_endereco;
-        this.cidade_endereco = cidade_endereco;
-        this.estado_endereco = estado_endereco;
-        this.cep_endereco = cep_endereco;
+        this.logradouro = logradouro;
+        this.numero = numero;
+        this.complemento = complemento;
+        this.bairro = bairro;
+        this.cidade = cidade;
+        this.estado = estado;
+        this.cep = cep;
     }
 
     public Long getId_endereco() {
@@ -37,72 +63,72 @@ public class Endereco {
     }
 
     public String getLogradouro() {
-        return logradouro_endereco;
+        return logradouro;
     }
 
     public void setLogradouro(String logradouro) {
-        this.logradouro_endereco = logradouro;
+        this.logradouro = logradouro;
     }
 
-    public String getNumero_endereco() {
-        return numero_endereco;
+    public String getNumero() {
+        return numero;
     }
 
-    public void setNumero_endereco(String numero_endereco) {
-        this.numero_endereco = numero_endereco;
+    public void setNumero(String numero) {
+        this.numero = numero;
     }
 
-    public String getComplemento_endereco() {
-        return complemento_endereco;
+    public String getComplemento() {
+        return complemento;
     }
 
-    public void setComplemento_endereco(String complemento_endereco) {
-        this.complemento_endereco = complemento_endereco;
+    public void setComplemento(String complemento) {
+        this.complemento = complemento;
     }
 
-    public String getBairro_endereco() {
-        return bairro_endereco;
+    public String getBairro() {
+        return bairro;
     }
 
-    public void setBairro_endereco(String bairro_endereco) {
-        this.bairro_endereco = bairro_endereco;
+    public void setBairro(String bairro) {
+        this.bairro = bairro;
     }
 
-    public String getCidade_endereco() {
-        return cidade_endereco;
+    public String getCidade() {
+        return cidade;
     }
 
-    public void setCidade_endereco(String cidade_endereco) {
-        this.cidade_endereco = cidade_endereco;
+    public void setCidade(String cidade) {
+        this.cidade = cidade;
     }
 
-    public String getEstado_endereco() {
-        return estado_endereco;
+    public String getEstado() {
+        return estado;
     }
 
-    public void setEstado_endereco(String estado_endereco) {
-        this.estado_endereco = estado_endereco;
+    public void setEstado(String estado) {
+        this.estado = estado;
     }
 
-    public String getCep_endereco() {
-        return cep_endereco;
+    public String getCep() {
+        return cep;
     }
 
-    public void setCep_endereco(String cep_endereco) {
-        this.cep_endereco = cep_endereco;
+    public void setCep(String cep) {
+        this.cep = cep;
     }
 
     @Override
     public String toString() {
         return "Endereco{" +
                 "id_endereco=" + id_endereco +
-                ", logradouro='" + logradouro_endereco + '\'' +
-                ", numero_endereco='" + numero_endereco + '\'' +
-                ", complemento_endereco='" + complemento_endereco + '\'' +
-                ", bairro_endereco='" + bairro_endereco + '\'' +
-                ", cidade_endereco='" + cidade_endereco + '\'' +
-                ", estado_endereco='" + estado_endereco + '\'' +
-                ", cep_endereco='" + cep_endereco + '\'' +
+                ", logradouro='" + logradouro + '\'' +
+                ", numero='" + numero + '\'' +
+                ", complemento='" + complemento + '\'' +
+                ", bairro='" + bairro + '\'' +
+                ", cidade='" + cidade + '\'' +
+                ", estado='" + estado + '\'' +
+                ", cep='" + cep + '\'' +
                 '}';
     }
 }

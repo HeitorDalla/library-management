@@ -1,62 +1,80 @@
 package com.heitor.model;
 
-import javax.xml.crypto.Data;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
+import java.util.Date;
+
+@Entity
+@Table(name = "autor")
 public class Autor {
-    private Long id_autor;
-    private String nome_autor;
-    private String nacionalidade_autor;
-    private Data data_nascimento_autor;
 
-    public Autor(Long id_autor,
-                 String nome_autor,
-                 String nacionalidade_autor,
-                 Data data_nascimento_autor) {
-        this.id_autor = id_autor;
-        this.nome_autor = nome_autor;
-        this.nacionalidade_autor = nacionalidade_autor;
-        this.data_nascimento_autor = data_nascimento_autor;
+    @Id
+    @Column(name = "id")
+    private Long id;
+
+    @Column(name = "nome_autor")
+    private String nome;
+
+    @Column(name = "nacionalidade_autor")
+    private String nacionalidade;
+
+    @Column(name = "data_nascimento_autor")
+    private Date dataNascimento;
+
+    public Autor() {}
+
+    public Autor(Long id,
+                 String nome,
+                 String nacionalidade,
+                 Date dataNascimento) {
+        this.id = id;
+        this.nome = nome;
+        this.nacionalidade = nacionalidade;
+        this.dataNascimento = dataNascimento;
     }
 
-    public Long getId_autor() {
-        return id_autor;
+    public Long getId() {
+        return id;
     }
 
-    public void setId_autor(Long id_autor) {
-        this.id_autor = id_autor;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public String getNome_autor() {
-        return nome_autor;
+    public String getNome() {
+        return nome;
     }
 
-    public void setNome_autor(String nome_autor) {
-        this.nome_autor = nome_autor;
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
     public String getNacionalidade() {
-        return nacionalidade_autor;
+        return nacionalidade;
     }
 
     public void setNacionalidade(String nacionalidade) {
-        this.nacionalidade_autor = nacionalidade;
+        this.nacionalidade = nacionalidade;
     }
 
-    public Data getData_nascimento_autor() {
-        return data_nascimento_autor;
+    public Date getData_nascimento() {
+        return dataNascimento;
     }
 
-    public void setData_nascimento_autor(Data data_nascimento_autor) {
-        this.data_nascimento_autor = data_nascimento_autor;
+    public void setData_nascimento(Date dataNascimento) {
+        this.dataNascimento = dataNascimento;
     }
 
     @Override
     public String toString() {
         return "Autor{" +
-                "id_autor=" + id_autor +
-                ", nome_autor='" + nome_autor + '\'' +
-                ", nacionalidade='" + nacionalidade_autor + '\'' +
-                ", data_nascimento_autor=" + data_nascimento_autor +
+                "id=" + id +
+                ", nome='" + nome + '\'' +
+                ", nacionalidade='" + nacionalidade + '\'' +
+                ", data_nascimento=" + dataNascimento +
                 '}';
     }
 }

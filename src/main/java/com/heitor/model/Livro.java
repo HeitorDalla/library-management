@@ -1,66 +1,89 @@
 package com.heitor.model;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
 import java.util.Date;
 import java.util.List;
 
+@Entity
+@Table(name = "livro")
 public class Livro {
-    private Long id_livro;
-    private String titulo_livro;
-    private int anoPublicacao_livro;
-    private String idioma_livro;
-    private Categoria categoria_livro;
-    private Editora editora_livro;
-    private List<Autor> autores_livro;
-    private Date dataCadastro_livro;
 
-    public Livro(Long id_livro,
-                 String titulo_livro,
-                 int anoPublicacao_livro,
-                 String idioma_livro,
+    @Id
+    @Column(name = "id")
+    private Long id;
+
+    @Column(name = "titulo_livro")
+    private String titulo;
+
+    @Column(name = "ano_publicacao_livro")
+    private int anoPublicacao;
+
+    @Column(name = "idioma_livro")
+    private String idioma;
+
+    private Categoria categoria_livro;
+
+    private Editora editora_livro;
+
+    private List<Autor> autores_livro;
+
+    @Column(name = "data_cadastro_livro")
+    private Date dataCadastro;
+
+    public Livro() {}
+
+    public Livro(Long id,
+                 String titulo,
+                 int anoPublicacao,
+                 String idioma,
                  Categoria categoria_livro,
                  Editora editora_livro,
                  List<Autor> autores_livro,
-                 Date dataCadastro_livro) {
-        this.id_livro = id_livro;
-        this.titulo_livro = titulo_livro;
-        this.anoPublicacao_livro = anoPublicacao_livro;
-        this.idioma_livro = idioma_livro;
+                 Date dataCadastro) {
+        this.id = id;
+        this.titulo = titulo;
+        this.anoPublicacao = anoPublicacao;
+        this.idioma = idioma;
         this.categoria_livro = categoria_livro;
         this.editora_livro = editora_livro;
         this.autores_livro = autores_livro;
-        this.dataCadastro_livro = dataCadastro_livro;
+        this.dataCadastro = dataCadastro;
     }
 
-    public Long getId_livro() {
-        return id_livro;
+    public Long getId() {
+        return id;
     }
 
-    public void setId_livro(Long id_livro) {
-        this.id_livro = id_livro;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public String getTitulo_livro() {
-        return titulo_livro;
+    public String getTitulo() {
+        return titulo;
     }
 
-    public void setTitulo_livro(String titulo_livro) {
-        this.titulo_livro = titulo_livro;
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
     }
 
-    public int getAnoPublicacao_livro() {
-        return anoPublicacao_livro;
+    public int getAnoPublicacao() {
+        return anoPublicacao;
     }
 
-    public void setAnoPublicacao_livro(int anoPublicacao_livro) {
-        this.anoPublicacao_livro = anoPublicacao_livro;
+    public void setAnoPublicacao(int anoPublicacao) {
+        this.anoPublicacao = anoPublicacao;
     }
 
-    public String getIdioma_livro() {
-        return idioma_livro;
+    public String getIdioma() {
+        return idioma;
     }
 
-    public void setIdioma_livro(String idioma_livro) {
-        this.idioma_livro = idioma_livro;
+    public void setIdioma(String idioma) {
+        this.idioma = idioma;
     }
 
     public Categoria getCategoria_livro() {
@@ -87,25 +110,25 @@ public class Livro {
         this.autores_livro = autores_livro;
     }
 
-    public Date getDataCadastro_livro() {
-        return dataCadastro_livro;
+    public Date getDataCadastro() {
+        return dataCadastro;
     }
 
-    public void setDataCadastro_livro(Date dataCadastro_livro) {
-        this.dataCadastro_livro = dataCadastro_livro;
+    public void setDataCadastro(Date dataCadastro) {
+        this.dataCadastro = dataCadastro;
     }
 
     @Override
     public String toString() {
         return "Livro{" +
-                "id_livro=" + id_livro +
-                ", titulo_livro='" + titulo_livro + '\'' +
-                ", anoPublicacao_livro=" + anoPublicacao_livro +
-                ", idioma_livro='" + idioma_livro + '\'' +
+                "id=" + id +
+                ", titulo='" + titulo + '\'' +
+                ", anoPublicacao=" + anoPublicacao +
+                ", idioma='" + idioma + '\'' +
                 ", categoria_livro=" + categoria_livro +
                 ", editora_livro=" + editora_livro +
                 ", autores_livro=" + autores_livro +
-                ", dataCadastro_livro=" + dataCadastro_livro +
+                ", dataCadastro=" + dataCadastro +
                 '}';
     }
 }

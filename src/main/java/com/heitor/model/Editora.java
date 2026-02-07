@@ -1,48 +1,64 @@
 package com.heitor.model;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "editora")
 public class Editora {
-    private Long id_editora;
-    private String nome_editora;
-    private String cnpj_editora;
 
-    public Editora(Long id_editora,
-                   String nome_editora,
-                   String cnpj_editora) {
-        this.id_editora = id_editora;
-        this.nome_editora = nome_editora;
-        this.cnpj_editora = cnpj_editora;
+    @Id
+    @Column(name = "id")
+    private Long id;
+
+    @Column(name = "nome_editora")
+    private String nome;
+
+    @Column(name = "cnpj_editora")
+    private String cnpj;
+
+    public Editora() {}
+
+    public Editora(Long id,
+                   String nome,
+                   String cnpj) {
+        this.id = id;
+        this.nome = nome;
+        this.cnpj = cnpj;
     }
 
-    public Long getId_editora() {
-        return id_editora;
+    public Long getId() {
+        return id;
     }
 
-    public void setId_editora(Long id_editora) {
-        this.id_editora = id_editora;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public String getNome_editora() {
-        return nome_editora;
+    public String getNome() {
+        return nome;
     }
 
-    public void setNome_editora(String nome_editora) {
-        this.nome_editora = nome_editora;
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
-    public String getCnpj_editora() {
-        return cnpj_editora;
+    public String getCnpj() {
+        return cnpj;
     }
 
-    public void setCnpj_editora(String cnpj_editora) {
-        this.cnpj_editora = cnpj_editora;
+    public void setCnpj(String cnpj) {
+        this.cnpj = cnpj;
     }
 
     @Override
     public String toString() {
         return "Editora{" +
-                "id_editora=" + id_editora +
-                ", nome_editora='" + nome_editora + '\'' +
-                ", cnpj_editora='" + cnpj_editora + '\'' +
+                "id=" + id +
+                ", nome='" + nome + '\'' +
+                ", cnpj='" + cnpj + '\'' +
                 '}';
     }
 }

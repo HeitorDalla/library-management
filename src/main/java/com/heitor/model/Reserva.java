@@ -1,34 +1,50 @@
 package com.heitor.model;
 
 import com.heitor.enumerate.StatusReserva;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
-import javax.xml.crypto.Data;
+import java.util.Date;
 
+@Entity
+@Table(name = "reserva")
 public class Reserva {
-    private Long id_reserva;
-    private Usuario id_usuario_reserva;
-    private Livro id_livro_reserva;
-    private Data data_reserva;
-    private StatusReserva status_reserva;
 
-    public Reserva(Long id_reserva,
+    @Id
+    @Column(name = "id")
+    private Long id;
+
+    private Usuario id_usuario_reserva;
+
+    private Livro id_livro_reserva;
+
+    @Column(name = "data_reserva")
+    private Date data;
+
+    private StatusReserva statusReserva;
+
+    public Reserva() {}
+
+    public Reserva(Long id,
                    Usuario id_usuario_reserva,
                    Livro id_livro_reserva,
-                   Data data_reserva,
-                   StatusReserva status_reserva) {
-        this.id_reserva = id_reserva;
+                   Date data,
+                   StatusReserva statusReserva) {
+        this.id = id;
         this.id_usuario_reserva = id_usuario_reserva;
         this.id_livro_reserva = id_livro_reserva;
-        this.data_reserva = data_reserva;
-        this.status_reserva = status_reserva;
+        this.data = data;
+        this.statusReserva = statusReserva;
     }
 
-    public Long getId_reserva() {
-        return id_reserva;
+    public Long getId() {
+        return id;
     }
 
-    public void setId_reserva(Long id_reserva) {
-        this.id_reserva = id_reserva;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public Usuario getId_usuario_reserva() {
@@ -47,30 +63,30 @@ public class Reserva {
         this.id_livro_reserva = id_livro_reserva;
     }
 
-    public Data getData_reserva() {
-        return data_reserva;
+    public Date getData() {
+        return data;
     }
 
-    public void setData_reserva(Data data_reserva) {
-        this.data_reserva = data_reserva;
+    public void setData(Date data) {
+        this.data = data;
     }
 
-    public StatusReserva getStatus_reserva() {
-        return status_reserva;
+    public StatusReserva getStatusReserva() {
+        return statusReserva;
     }
 
-    public void setStatus_reserva(StatusReserva status_reserva) {
-        this.status_reserva = status_reserva;
+    public void setStatusReserva(StatusReserva statusReserva) {
+        this.statusReserva = statusReserva;
     }
 
     @Override
     public String toString() {
         return "Reserva{" +
-                "id_reserva=" + id_reserva +
+                "id=" + id +
                 ", id_usuario_reserva=" + id_usuario_reserva +
                 ", id_livro_reserva=" + id_livro_reserva +
-                ", data_reserva=" + data_reserva +
-                ", status_reserva=" + status_reserva +
+                ", data=" + data +
+                ", statusReserva=" + statusReserva +
                 '}';
     }
 }

@@ -1,48 +1,62 @@
 package com.heitor.model;
 
-public class Categoria {
-    private Long id_categoria;
-    private String nome_categoria;
-    private String descricao_categoria;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
-    public Categoria(Long id_categoria,
-                     String nome_categoria,
-                     String descricao_categoria) {
-        this.id_categoria = id_categoria;
-        this.nome_categoria = nome_categoria;
-        this.descricao_categoria = descricao_categoria;
+@Entity
+@Table(name = "categoria")
+public class Categoria {
+
+    @Id
+    @Column(name = "id")
+    private Long id;
+
+    @Column(name = "nome_categoria")
+    private String nome;
+
+    @Column(name = "descricao_categoria")
+    private String descricao;
+
+    public Categoria(Long id,
+                     String nome,
+                     String descricao) {
+        this.id = id;
+        this.nome = nome;
+        this.descricao = descricao;
     }
 
     public Long getId_categoria() {
-        return id_categoria;
+        return id;
     }
 
-    public void setId_categoria(Long id_categoria) {
-        this.id_categoria = id_categoria;
+    public void setId_categoria(Long id) {
+        this.id = id;
     }
 
-    public String getNome_categoria() {
-        return nome_categoria;
+    public String getNome() {
+        return nome;
     }
 
-    public void setNome_categoria(String nome_categoria) {
-        this.nome_categoria = nome_categoria;
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
-    public String getDescricao_categoria() {
-        return descricao_categoria;
+    public String getDescricao() {
+        return descricao;
     }
 
-    public void setDescricao_categoria(String descricao_categoria) {
-        this.descricao_categoria = descricao_categoria;
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
     }
 
     @Override
     public String toString() {
         return "Categoria{" +
-                "id_categoria=" + id_categoria +
-                ", nome_categoria='" + nome_categoria + '\'' +
-                ", descricao_categoria='" + descricao_categoria + '\'' +
+                "id_categoria=" + id +
+                ", nome='" + nome + '\'' +
+                ", descricao='" + descricao + '\'' +
                 '}';
     }
 }
