@@ -1,10 +1,7 @@
 package com.heitor.model;
 
 import com.heitor.enumerate.StatusEmprestimo;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import java.util.Date;
 
@@ -23,6 +20,9 @@ public class Emprestimo {
 
     @Column(name = "data_devolucao_emprestimo")
     private Date dataDevolucao;
+
+    @Transient // anotacao para fazer o JPA ignorar a persistencia no banco de dados, mas util para regras de negoico
+    private long diasAtraso;
 
     private StatusEmprestimo statusEmprestimo;
 
@@ -78,6 +78,15 @@ public class Emprestimo {
 
     public void setStatusEmprestimo(StatusEmprestimo statusEmprestimo) {
         this.statusEmprestimo = statusEmprestimo;
+    }
+
+    public void setDiasAtraso(long diasAtraso) {
+        this.diasAtraso = diasAtraso;
+    }
+
+    public long getDiasAtraso () {
+        if (dataDevolucao == null) return 0; // verifica se nao entregou o emprestimo
+        return 1; // fazer logica de retorno
     }
 
     @Override

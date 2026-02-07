@@ -1,17 +1,16 @@
 package com.heitor.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
+// @Embeddable  --  USADO QUANDO QUERO CRIAR UM OBJETO DE VALOR, OU SEJA, NAO TEM IDENTIDADE PROPRIA, NAO VIRA TABELA SEPARADA.
+// Usar `Embeddable` quando quero que as colunas de um objeto se `agregem` em uma entidade, nao tendo identidade propria
 @Entity
 @Table(name = "endereco")
 public class Endereco {
 
     @Id
     @Column(name = "id")
-    private Long id_endereco;
+    private Long id;
 
     @Column(name = "logradouro_endereco")
     private String logradouro;
@@ -36,7 +35,7 @@ public class Endereco {
 
     public Endereco() {}
 
-    public Endereco(Long id_endereco,
+    public Endereco(Long id,
                     String logradouro,
                     String numero,
                     String complemento,
@@ -44,7 +43,7 @@ public class Endereco {
                     String cidade,
                     String estado,
                     String cep) {
-        this.id_endereco = id_endereco;
+        this.id = id;
         this.logradouro = logradouro;
         this.numero = numero;
         this.complemento = complemento;
@@ -55,11 +54,11 @@ public class Endereco {
     }
 
     public Long getId_endereco() {
-        return id_endereco;
+        return id;
     }
 
-    public void setId_endereco(Long id_endereco) {
-        this.id_endereco = id_endereco;
+    public void setId_endereco(Long id) {
+        this.id = id;
     }
 
     public String getLogradouro() {
@@ -121,7 +120,7 @@ public class Endereco {
     @Override
     public String toString() {
         return "Endereco{" +
-                "id_endereco=" + id_endereco +
+                "id_endereco=" + id +
                 ", logradouro='" + logradouro + '\'' +
                 ", numero='" + numero + '\'' +
                 ", complemento='" + complemento + '\'' +
