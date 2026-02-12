@@ -1,18 +1,17 @@
 package com.heitor.model;
 
 import com.heitor.enumerate.StatusUsuario;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "usuario")
 public class Usuario {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
@@ -27,10 +26,15 @@ public class Usuario {
 
     private StatusUsuario status;
 
+    @OneToOne
+    @JoinColumn(name = "id_endereco") // vai ser o nome da foreign key (para o banco nao colocar um nome generico)
     private Endereco endereco;
 
-    @Column(name = "data_cadastro")
+    @Column(name = "data_cadastro_usuario")
     private Date dataCadastro;
+
+    @OneToMany(mappedBy = "usuario") // apenas uma ligacao para o atributo `usuario` da entidade Emprestimo
+    private List<Emprestimo> emprestimos;
 
     public Usuario() {}
 
@@ -40,7 +44,8 @@ public class Usuario {
                    String email,
                    StatusUsuario status,
                    Endereco endereco,
-                   Date dataCadastro) {
+                   Date dataCadastro,
+                   List<Emprestimo> emprestimos) {
         this.id = id;
         this.nome = nome;
         this.telefone = telefone;
@@ -48,6 +53,7 @@ public class Usuario {
         this.status = status;
         this.endereco = endereco;
         this.dataCadastro = dataCadastro;
+        this.emprestimos = emprestimos;
     }
 
     public Long getId() {
@@ -106,16 +112,25 @@ public class Usuario {
         this.dataCadastro = dataCadastro;
     }
 
+    public List<Emprestimo> getEmprestimos() {
+        return emprestimos;
+    }
+
+    public void setEmprestimos(List<Emprestimo> emprestimos) {
+        this.emprestimos = emprestimos;
+    }
+
     @Override
     public String toString() {
         return "Usuario{" +
                 "id=" + id +
                 ", nome='" + nome + '\'' +
-                ", talefone='" + telefone + '\'' +
+                ", telefone='" + telefone + '\'' +
                 ", email='" + email + '\'' +
                 ", status=" + status +
                 ", endereco=" + endereco +
                 ", dataCadastro=" + dataCadastro +
+                ", emprestimos=" + emprestimos +
                 '}';
     }
 }

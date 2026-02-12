@@ -3,23 +3,26 @@ package com.heitor.model;
 import com.heitor.enumerate.StatusEmprestimo;
 import jakarta.persistence.*;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "emprestimo")
 public class Emprestimo {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
-    private Usuario id_usuario_emprestimo;
+    @ManyToOne
+    @JoinColumn(name = "id_usuario")
+    private Usuario usuario;
 
     @Column(name = "data_emprestimo")
-    private Date dataEmprestimo;
+    private LocalDate dataEmprestimo;
 
     @Column(name = "data_devolucao_emprestimo")
-    private Date dataDevolucao;
+    private LocalDate dataDevolucao;
 
     @Transient // anotacao para fazer o JPA ignorar a persistencia no banco de dados, mas util para regras de negoico
     private long diasAtraso;
@@ -29,14 +32,16 @@ public class Emprestimo {
     public Emprestimo() {}
 
     public Emprestimo(Long id,
-                      Usuario id_usuario_emprestimo,
-                      Date dataEmprestimo,
-                      Date dataDevolucao,
+                      Usuario usuario,
+                      LocalDate dataEmprestimo,
+                      LocalDate dataDevolucao,
+                      long diasAtraso,
                       StatusEmprestimo statusEmprestimo) {
         this.id = id;
-        this.id_usuario_emprestimo = id_usuario_emprestimo;
+        this.usuario = usuario;
         this.dataEmprestimo = dataEmprestimo;
         this.dataDevolucao = dataDevolucao;
+        this.diasAtraso = diasAtraso;
         this.statusEmprestimo = statusEmprestimo;
     }
 
@@ -48,28 +53,36 @@ public class Emprestimo {
         this.id = id;
     }
 
-    public Usuario getId_usuario_emprestimo() {
-        return id_usuario_emprestimo;
+    public Usuario getUsuario() {
+        return usuario;
     }
 
-    public void setId_usuario_emprestimo(Usuario id_usuario_emprestimo) {
-        this.id_usuario_emprestimo = id_usuario_emprestimo;
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 
-    public Date getDataEmprestimo() {
+    public LocalDate getDataEmprestimo() {
         return dataEmprestimo;
     }
 
-    public void setDataEmprestimo(Date dataEmprestimo) {
+    public void setDataEmprestimo(LocalDate dataEmprestimo) {
         this.dataEmprestimo = dataEmprestimo;
     }
 
-    public Date getDataDevolucao() {
+    public LocalDate getDataDevolucao() {
         return dataDevolucao;
     }
 
-    public void setDataDevolucao(Date dataDevolucao) {
+    public void setDataDevolucao(LocalDate dataDevolucao) {
         this.dataDevolucao = dataDevolucao;
+    }
+
+    public long getDiasAtraso() {
+        return diasAtraso;
+    }
+
+    public void setDiasAtraso(long diasAtraso) {
+        this.diasAtraso = diasAtraso;
     }
 
     public StatusEmprestimo getStatusEmprestimo() {
@@ -80,22 +93,14 @@ public class Emprestimo {
         this.statusEmprestimo = statusEmprestimo;
     }
 
-    public void setDiasAtraso(long diasAtraso) {
-        this.diasAtraso = diasAtraso;
-    }
-
-    public long getDiasAtraso () {
-        if (dataDevolucao == null) return 0; // verifica se nao entregou o emprestimo
-        return 1; // fazer logica de retorno
-    }
-
     @Override
     public String toString() {
         return "Emprestimo{" +
                 "id=" + id +
-                ", id_usuario_emprestimo=" + id_usuario_emprestimo +
+                ", usuario=" + usuario +
                 ", dataEmprestimo=" + dataEmprestimo +
                 ", dataDevolucao=" + dataDevolucao +
+                ", diasAtraso=" + diasAtraso +
                 ", statusEmprestimo=" + statusEmprestimo +
                 '}';
     }

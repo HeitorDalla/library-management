@@ -9,6 +9,7 @@ import jakarta.persistence.*;
 public class Endereco {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
@@ -16,7 +17,7 @@ public class Endereco {
     private String logradouro;
 
     @Column(name = "numero_endereco")
-    private String numero;
+    private int numero;
 
     @Column(name = "complemento_endereco")
     private String complemento;
@@ -37,7 +38,7 @@ public class Endereco {
 
     public Endereco(Long id,
                     String logradouro,
-                    String numero,
+                    int numero,
                     String complemento,
                     String bairro,
                     String cidade,
@@ -53,11 +54,11 @@ public class Endereco {
         this.cep = cep;
     }
 
-    public Long getId_endereco() {
+    public Long getId() {
         return id;
     }
 
-    public void setId_endereco(Long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -69,11 +70,11 @@ public class Endereco {
         this.logradouro = logradouro;
     }
 
-    public String getNumero() {
+    public int getNumero() {
         return numero;
     }
 
-    public void setNumero(String numero) {
+    public void setNumero(int numero) {
         this.numero = numero;
     }
 
@@ -120,9 +121,9 @@ public class Endereco {
     @Override
     public String toString() {
         return "Endereco{" +
-                "id_endereco=" + id +
+                "id=" + id +
                 ", logradouro='" + logradouro + '\'' +
-                ", numero='" + numero + '\'' +
+                ", numero=" + numero +
                 ", complemento='" + complemento + '\'' +
                 ", bairro='" + bairro + '\'' +
                 ", cidade='" + cidade + '\'' +
