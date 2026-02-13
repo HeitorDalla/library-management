@@ -24,17 +24,20 @@ public class Usuario {
     @Column(name = "email_usuario")
     private String email;
 
-    private StatusUsuario status;
-
-    @OneToOne
-    @JoinColumn(name = "id_endereco") // vai ser o nome da foreign key (para o banco nao colocar um nome generico)
-    private Endereco endereco;
-
     @Column(name = "data_cadastro_usuario")
     private Date dataCadastro;
 
+    private StatusUsuario status;
+
+    @OneToOne
+    @JoinColumn(name = "id_endereco")
+    private Endereco endereco;
+
     @OneToMany(mappedBy = "usuario") // apenas uma ligacao para o atributo `usuario` da entidade Emprestimo
     private List<Emprestimo> emprestimos;
+
+    @OneToMany(mappedBy = "usuario")
+    private List<Reserva> reservas;
 
     public Usuario() {}
 
@@ -45,7 +48,8 @@ public class Usuario {
                    StatusUsuario status,
                    Endereco endereco,
                    Date dataCadastro,
-                   List<Emprestimo> emprestimos) {
+                   List<Emprestimo> emprestimos,
+                   List<Reserva> reservas) {
         this.id = id;
         this.nome = nome;
         this.telefone = telefone;
@@ -54,6 +58,7 @@ public class Usuario {
         this.endereco = endereco;
         this.dataCadastro = dataCadastro;
         this.emprestimos = emprestimos;
+        this.reservas = reservas;
     }
 
     public Long getId() {
@@ -120,6 +125,14 @@ public class Usuario {
         this.emprestimos = emprestimos;
     }
 
+    public List<Reserva> getReservas() {
+        return reservas;
+    }
+
+    public void setReservas(List<Reserva> reservas) {
+        this.reservas = reservas;
+    }
+
     @Override
     public String toString() {
         return "Usuario{" +
@@ -131,6 +144,7 @@ public class Usuario {
                 ", endereco=" + endereco +
                 ", dataCadastro=" + dataCadastro +
                 ", emprestimos=" + emprestimos +
+                ", reservas=" + reservas +
                 '}';
     }
 }

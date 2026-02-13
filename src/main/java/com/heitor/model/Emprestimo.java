@@ -4,6 +4,7 @@ import com.heitor.enumerate.StatusEmprestimo;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Table(name = "emprestimo")
@@ -29,6 +30,9 @@ public class Emprestimo {
 
     private StatusEmprestimo statusEmprestimo;
 
+    @OneToMany(mappedBy = "emprestimo")
+    private List<ItemEmprestimo> itemEmprestimo;
+
     public Emprestimo() {}
 
     public Emprestimo(Long id,
@@ -36,13 +40,15 @@ public class Emprestimo {
                       LocalDate dataEmprestimo,
                       LocalDate dataDevolucao,
                       long diasAtraso,
-                      StatusEmprestimo statusEmprestimo) {
+                      StatusEmprestimo statusEmprestimo,
+                      List<ItemEmprestimo> itemEmprestimo) {
         this.id = id;
         this.usuario = usuario;
         this.dataEmprestimo = dataEmprestimo;
         this.dataDevolucao = dataDevolucao;
         this.diasAtraso = diasAtraso;
         this.statusEmprestimo = statusEmprestimo;
+        this.itemEmprestimo = itemEmprestimo;
     }
 
     public Long getId() {
@@ -93,6 +99,14 @@ public class Emprestimo {
         this.statusEmprestimo = statusEmprestimo;
     }
 
+    public List<ItemEmprestimo> getItemEmprestimo() {
+        return itemEmprestimo;
+    }
+
+    public void setItemEmprestimo(List<ItemEmprestimo> itemEmprestimo) {
+        this.itemEmprestimo = itemEmprestimo;
+    }
+
     @Override
     public String toString() {
         return "Emprestimo{" +
@@ -102,6 +116,7 @@ public class Emprestimo {
                 ", dataDevolucao=" + dataDevolucao +
                 ", diasAtraso=" + diasAtraso +
                 ", statusEmprestimo=" + statusEmprestimo +
+                ", itemEmprestimo=" + itemEmprestimo +
                 '}';
     }
 }
