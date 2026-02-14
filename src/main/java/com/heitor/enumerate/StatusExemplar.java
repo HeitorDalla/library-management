@@ -1,4 +1,11 @@
 package com.heitor.enumerate;
 
-public class StatusExemplar {
+public enum StatusExemplar {
+    DISPONIVEL,
+    EMPRESTADO,
+    RESERVADO,
+    DANIFICADO,
+    EXTRAVIADO,
+    MANUTENCAO,
+    INATIVO
 }
