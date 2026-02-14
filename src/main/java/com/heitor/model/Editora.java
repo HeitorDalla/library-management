@@ -1,32 +1,38 @@
 package com.heitor.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "editora")
 public class Editora {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "nome_editora")
+    @Column(name = "nome_editora", nullable = false)
     private String nome;
 
-    @Column(name = "cnpj_editora")
+    @Column(name = "cnpj_editora", nullable = false, unique = true)
     private String cnpj;
+
+    @OneToMany(mappedBy = "editora", fetch = FetchType.LAZY)
+    private List<Livro> livros = new ArrayList<>();
 
     public Editora() {}
 
     public Editora(Long id,
                    String nome,
-                   String cnpj) {
+                   String cnpj,
+                   List<Livro> livros) {
         this.id = id;
         this.nome = nome;
         this.cnpj = cnpj;
+        this.livros = livros;
     }
 
     public Long getId() {
@@ -53,12 +59,21 @@ public class Editora {
         this.cnpj = cnpj;
     }
 
+    public List<Livro> getLivros() {
+        return livros;
+    }
+
+    public void setLivros(List<Livro> livros) {
+        this.livros = livros;
+    }
+
     @Override
     public String toString() {
         return "Editora{" +
                 "id=" + id +
                 ", nome='" + nome + '\'' +
                 ", cnpj='" + cnpj + '\'' +
+                ", livros=" + livros +
                 '}';
     }
 }
