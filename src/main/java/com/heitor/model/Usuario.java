@@ -3,7 +3,8 @@ package com.heitor.model;
 import com.heitor.enumerate.StatusUsuario;
 import jakarta.persistence.*;
 
-import java.util.Date;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -15,29 +16,31 @@ public class Usuario {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "nome_usuario")
+    @Column(name = "nome_usuario", nullable = false)
     private String nome;
 
-    @Column(name = "telefone_usuario")
+    @Column(name = "telefone_usuario", nullable = false)
     private String telefone;
 
-    @Column(name = "email_usuario")
+    @Column(name = "email_usuario", nullable = false)
     private String email;
 
-    @Column(name = "data_cadastro_usuario")
-    private Date dataCadastro;
+    @Column(name = "data_cadastro_usuario", nullable = false)
+    private LocalDate dataCadastro;
 
-    private StatusUsuario status;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status_usuario", nullable = false)
+    private StatusUsuario status_usuario;
 
-    @OneToOne
-    @JoinColumn(name = "id_endereco")
+    @OneToOne(fetch = FetchType.LAZY, optional = false, cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_endereco", nullable = false, unique = true)
     private Endereco endereco;
 
-    @OneToMany(mappedBy = "usuario") // apenas uma ligacao para o atributo `usuario` da entidade Emprestimo
-    private List<Emprestimo> emprestimos;
+    @OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Emprestimo> emprestimos = new ArrayList<>();
 
-    @OneToMany(mappedBy = "usuario")
-    private List<Reserva> reservas;
+    @OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Reserva> reservas = new ArrayList<>();
 
     public Usuario() {}
 
@@ -45,16 +48,16 @@ public class Usuario {
                    String nome,
                    String telefone,
                    String email,
-                   StatusUsuario status,
+                   StatusUsuario status_usuario,
                    Endereco endereco,
-                   Date dataCadastro,
+                   LocalDate dataCadastro,
                    List<Emprestimo> emprestimos,
                    List<Reserva> reservas) {
         this.id = id;
         this.nome = nome;
         this.telefone = telefone;
         this.email = email;
-        this.status = status;
+        this.status_usuario = status_usuario;
         this.endereco = endereco;
         this.dataCadastro = dataCadastro;
         this.emprestimos = emprestimos;
@@ -94,11 +97,11 @@ public class Usuario {
     }
 
     public StatusUsuario getStatus() {
-        return status;
+        return status_usuario;
     }
 
-    public void setStatus(StatusUsuario status) {
-        this.status = status;
+    public void setStatus(StatusUsuario status_usuario) {
+        this.status_usuario = status_usuario;
     }
 
     public Endereco getEndereco() {
@@ -109,11 +112,11 @@ public class Usuario {
         this.endereco = endereco;
     }
 
-    public Date getDataCadastro() {
+    public LocalDate getDataCadastro() {
         return dataCadastro;
     }
 
-    public void setDataCadastro(Date dataCadastro) {
+    public void setDataCadastro(LocalDate dataCadastro) {
         this.dataCadastro = dataCadastro;
     }
 
@@ -140,7 +143,7 @@ public class Usuario {
                 ", nome='" + nome + '\'' +
                 ", telefone='" + telefone + '\'' +
                 ", email='" + email + '\'' +
-                ", status=" + status +
+                ", status=" + status_usuario +
                 ", endereco=" + endereco +
                 ", dataCadastro=" + dataCadastro +
                 ", emprestimos=" + emprestimos +
