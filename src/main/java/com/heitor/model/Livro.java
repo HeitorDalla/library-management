@@ -1,11 +1,9 @@
 package com.heitor.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
-import java.util.Date;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -13,26 +11,31 @@ import java.util.List;
 public class Livro {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "titulo_livro")
+    @Column(name = "titulo_livro", nullable = false)
     private String titulo;
 
-    @Column(name = "ano_publicacao_livro")
+    @Column(name = "ano_publicacao_livro", nullable = false)
     private int anoPublicacao;
 
-    @Column(name = "idioma_livro")
+    @Column(name = "idioma_livro", nullable = false)
     private String idioma;
 
-    private Categoria categoria_livro;
+    @Column(name = "data_cadastro_livro", nullable = false)
+    private LocalDate dataCadastro;
 
-    private Editora editora_livro;
+    @OneToMany(mappedBy = "livro", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<LivroCategoria> categorias = new ArrayList<>();
 
-    private List<Autor> autores_livro;
+    @OneToMany(mappedBy = "livro", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<LivroAutor> autores = new ArrayList<>();
 
-    @Column(name = "data_cadastro_livro")
-    private Date dataCadastro;
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "id_editora", nullable = false)
+    private Editora editora;
 
     public Livro() {}
 
@@ -40,18 +43,18 @@ public class Livro {
                  String titulo,
                  int anoPublicacao,
                  String idioma,
-                 Categoria categoria_livro,
-                 Editora editora_livro,
-                 List<Autor> autores_livro,
-                 Date dataCadastro) {
+                 LocalDate dataCadastro,
+                 List<LivroCategoria> categorias,
+                 List<LivroAutor> autores,
+                 Editora editora) {
         this.id = id;
         this.titulo = titulo;
         this.anoPublicacao = anoPublicacao;
         this.idioma = idioma;
-        this.categoria_livro = categoria_livro;
-        this.editora_livro = editora_livro;
-        this.autores_livro = autores_livro;
         this.dataCadastro = dataCadastro;
+        this.categorias = categorias;
+        this.autores = autores;
+        this.editora = editora;
     }
 
     public Long getId() {
@@ -86,36 +89,36 @@ public class Livro {
         this.idioma = idioma;
     }
 
-    public Categoria getCategoria_livro() {
-        return categoria_livro;
-    }
-
-    public void setCategoria_livro(Categoria categoria_livro) {
-        this.categoria_livro = categoria_livro;
-    }
-
-    public Editora getEditora_livro() {
-        return editora_livro;
-    }
-
-    public void setEditora_livro(Editora editora_livro) {
-        this.editora_livro = editora_livro;
-    }
-
-    public List<Autor> getAutores_livro() {
-        return autores_livro;
-    }
-
-    public void setAutores_livro(List<Autor> autores_livro) {
-        this.autores_livro = autores_livro;
-    }
-
-    public Date getDataCadastro() {
+    public LocalDate getDataCadastro() {
         return dataCadastro;
     }
 
-    public void setDataCadastro(Date dataCadastro) {
+    public void setDataCadastro(LocalDate dataCadastro) {
         this.dataCadastro = dataCadastro;
+    }
+
+    public List<LivroCategoria> getCategorias() {
+        return categorias;
+    }
+
+    public void setCategorias(List<LivroCategoria> categorias) {
+        this.categorias = categorias;
+    }
+
+    public List<LivroAutor> getAutores() {
+        return autores;
+    }
+
+    public void setAutores(List<LivroAutor> autores) {
+        this.autores = autores;
+    }
+
+    public Editora getEditora() {
+        return editora;
+    }
+
+    public void setEditora(Editora editora) {
+        this.editora = editora;
     }
 
     @Override
@@ -125,10 +128,10 @@ public class Livro {
                 ", titulo='" + titulo + '\'' +
                 ", anoPublicacao=" + anoPublicacao +
                 ", idioma='" + idioma + '\'' +
-                ", categoria_livro=" + categoria_livro +
-                ", editora_livro=" + editora_livro +
-                ", autores_livro=" + autores_livro +
                 ", dataCadastro=" + dataCadastro +
+                ", categorias=" + categorias +
+                ", autores=" + autores +
+                ", editora=" + editora +
                 '}';
     }
 }

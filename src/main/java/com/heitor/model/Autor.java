@@ -1,39 +1,44 @@
 package com.heitor.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
-import java.util.Date;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "autor")
 public class Autor {
 
     @Id
-    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
     private Long id;
 
-    @Column(name = "nome_autor")
+    @Column(name = "nome_autor", nullable = false)
     private String nome;
 
-    @Column(name = "nacionalidade_autor")
+    @Column(name = "nacionalidade_autor", nullable = false)
     private String nacionalidade;
 
-    @Column(name = "data_nascimento_autor")
-    private Date dataNascimento;
+    @Column(name = "data_nascimento_autor", nullable = false)
+    private LocalDate dataNascimento;
+
+    @OneToMany(mappedBy = "autor", fetch = FetchType.LAZY)
+    private List<LivroAutor> autores = new ArrayList<>();
 
     public Autor() {}
 
     public Autor(Long id,
                  String nome,
                  String nacionalidade,
-                 Date dataNascimento) {
+                 LocalDate dataNascimento,
+                 List<LivroAutor> autores) {
         this.id = id;
         this.nome = nome;
         this.nacionalidade = nacionalidade;
         this.dataNascimento = dataNascimento;
+        this.autores = autores;
     }
 
     public Long getId() {
@@ -60,12 +65,20 @@ public class Autor {
         this.nacionalidade = nacionalidade;
     }
 
-    public Date getData_nascimento() {
+    public LocalDate getDataNascimento() {
         return dataNascimento;
     }
 
-    public void setData_nascimento(Date dataNascimento) {
+    public void setDataNascimento(LocalDate dataNascimento) {
         this.dataNascimento = dataNascimento;
+    }
+
+    public List<LivroAutor> getAutores() {
+        return autores;
+    }
+
+    public void setAutores(List<LivroAutor> autores) {
+        this.autores = autores;
     }
 
     @Override
@@ -74,7 +87,8 @@ public class Autor {
                 "id=" + id +
                 ", nome='" + nome + '\'' +
                 ", nacionalidade='" + nacionalidade + '\'' +
-                ", data_nascimento=" + dataNascimento +
+                ", dataNascimento=" + dataNascimento +
+                ", autores=" + autores +
                 '}';
     }
 }
