@@ -1,40 +1,44 @@
 package com.heitor.model;
 
 import com.heitor.enumerate.StatusReserva;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "reserva")
 public class Reserva {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
-    private Usuario id_usuario_reserva;
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "id_usuario", nullable = false)
+    private Usuario usuario;
 
-    private Livro id_livro_reserva;
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "id_exemplar", nullable = false)
+    private Exemplar exemplar;
 
-    @Column(name = "data_reserva")
-    private Date data;
+    @Column(name = "data_reserva", nullable = false)
+    private LocalDate data;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status_reserva", nullable = false)
     private StatusReserva statusReserva;
 
     public Reserva() {}
 
     public Reserva(Long id,
-                   Usuario id_usuario_reserva,
-                   Livro id_livro_reserva,
-                   Date data,
+                   Usuario usuario,
+                   Exemplar exemplar,
+                   LocalDate data,
                    StatusReserva statusReserva) {
         this.id = id;
-        this.id_usuario_reserva = id_usuario_reserva;
-        this.id_livro_reserva = id_livro_reserva;
+        this.usuario = usuario;
+        this.exemplar = exemplar;
         this.data = data;
         this.statusReserva = statusReserva;
     }
@@ -47,27 +51,27 @@ public class Reserva {
         this.id = id;
     }
 
-    public Usuario getId_usuario_reserva() {
-        return id_usuario_reserva;
+    public Usuario getUsuario() {
+        return usuario;
     }
 
-    public void setId_usuario_reserva(Usuario id_usuario_reserva) {
-        this.id_usuario_reserva = id_usuario_reserva;
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 
-    public Livro getId_livro_reserva() {
-        return id_livro_reserva;
+    public Exemplar getExemplar() {
+        return exemplar;
     }
 
-    public void setId_livro_reserva(Livro id_livro_reserva) {
-        this.id_livro_reserva = id_livro_reserva;
+    public void setExemplar(Exemplar exemplar) {
+        this.exemplar = exemplar;
     }
 
-    public Date getData() {
+    public LocalDate getData() {
         return data;
     }
 
-    public void setData(Date data) {
+    public void setData(LocalDate data) {
         this.data = data;
     }
 
@@ -83,8 +87,8 @@ public class Reserva {
     public String toString() {
         return "Reserva{" +
                 "id=" + id +
-                ", id_usuario_reserva=" + id_usuario_reserva +
-                ", id_livro_reserva=" + id_livro_reserva +
+                ", usuario=" + usuario +
+                ", exemplar=" + exemplar +
                 ", data=" + data +
                 ", statusReserva=" + statusReserva +
                 '}';
