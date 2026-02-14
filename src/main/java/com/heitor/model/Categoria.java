@@ -1,37 +1,45 @@
 package com.heitor.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "categoria")
 public class Categoria {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "nome_categoria")
+    @Column(name = "nome_categoria", nullable = false)
     private String nome;
 
-    @Column(name = "descricao_categoria")
+    @Column(name = "descricao_categoria", nullable = false)
     private String descricao;
+
+    @OneToMany(mappedBy = "categoria", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<LivroCategoria> categorias = new ArrayList<>();
+
+    public Categoria() {}
 
     public Categoria(Long id,
                      String nome,
-                     String descricao) {
+                     String descricao,
+                     List<LivroCategoria> categorias) {
         this.id = id;
         this.nome = nome;
         this.descricao = descricao;
+        this.categorias = categorias;
     }
 
-    public Long getId_categoria() {
+    public Long getId() {
         return id;
     }
 
-    public void setId_categoria(Long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -51,12 +59,21 @@ public class Categoria {
         this.descricao = descricao;
     }
 
+    public List<LivroCategoria> getCategorias() {
+        return categorias;
+    }
+
+    public void setCategorias(List<LivroCategoria> categorias) {
+        this.categorias = categorias;
+    }
+
     @Override
     public String toString() {
         return "Categoria{" +
-                "id_categoria=" + id +
+                "id=" + id +
                 ", nome='" + nome + '\'' +
                 ", descricao='" + descricao + '\'' +
+                ", categorias=" + categorias +
                 '}';
     }
 }
