@@ -1,44 +1,46 @@
 package com.heitor.model;
 
 import com.heitor.enumerate.StatusMulta;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "multa")
 public class Multa {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
-    private Emprestimo id_emprestimo_multa;
+    @OneToOne(fetch = FetchType.LAZY, optional = false, cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_emprestimo", nullable = false)
+    private Emprestimo emprestimo;
 
-    @Column(name = "valor_multa")
+    @Column(name = "valor_multa", nullable = false)
     private float valor;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status_multa", nullable = false)
     private StatusMulta status;
 
-    @Column(name = "data_geracao_multa")
-    private Date dataGeracao;
+    @Column(name = "data_geracao_multa", nullable = false)
+    private LocalDate dataGeracao;
 
-    @Column(name = "data_pagamento_multa")
-    private Date dataPagamento;
+    @Column(name = "data_pagamento_multa", nullable = false)
+    private LocalDate dataPagamento;
 
     public Multa() {}
 
     public Multa(Long id,
-                 Emprestimo id_emprestimo_multa,
+                 Emprestimo emprestimo,
                  float valor,
                  StatusMulta status,
-                 Date dataGeracao,
-                 Date dataPagamento) {
+                 LocalDate dataGeracao,
+                 LocalDate dataPagamento) {
         this.id = id;
-        this.id_emprestimo_multa = id_emprestimo_multa;
+        this.emprestimo = emprestimo;
         this.valor = valor;
         this.status = status;
         this.dataGeracao = dataGeracao;
@@ -53,19 +55,19 @@ public class Multa {
         this.id = id;
     }
 
-    public Emprestimo getId_emprestimo_multa() {
-        return id_emprestimo_multa;
+    public Emprestimo getEmprestimo() {
+        return emprestimo;
     }
 
-    public void setId_emprestimo_multa(Emprestimo id_emprestimo_multa) {
-        this.id_emprestimo_multa = id_emprestimo_multa;
+    public void setEmprestimo(Emprestimo emprestimo) {
+        this.emprestimo = emprestimo;
     }
 
-    public float getValorMulta() {
+    public float getValor() {
         return valor;
     }
 
-    public void setValorMulta(float valor) {
+    public void setValor(float valor) {
         this.valor = valor;
     }
 
@@ -77,19 +79,19 @@ public class Multa {
         this.status = status;
     }
 
-    public Date getDataGeracao() {
+    public LocalDate getDataGeracao() {
         return dataGeracao;
     }
 
-    public void setDataGeracao(Date dataGeracao) {
+    public void setDataGeracao(LocalDate dataGeracao) {
         this.dataGeracao = dataGeracao;
     }
 
-    public Date getDataPagamento() {
+    public LocalDate getDataPagamento() {
         return dataPagamento;
     }
 
-    public void setDataPagamento(Date dataPagamento) {
+    public void setDataPagamento(LocalDate dataPagamento) {
         this.dataPagamento = dataPagamento;
     }
 
@@ -97,8 +99,8 @@ public class Multa {
     public String toString() {
         return "Multa{" +
                 "id=" + id +
-                ", id_emprestimo_multa=" + id_emprestimo_multa +
-                ", valorMulta=" + valor +
+                ", emprestimo=" + emprestimo +
+                ", valor=" + valor +
                 ", status=" + status +
                 ", dataGeracao=" + dataGeracao +
                 ", dataPagamento=" + dataPagamento +

@@ -34,7 +34,7 @@ public class Emprestimo {
     private StatusEmprestimo statusEmprestimo;
 
     @OneToMany(mappedBy = "emprestimo", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<ItemEmprestimo> itemEmprestimo = new ArrayList<>();
+    private List<ItemEmprestimo> itens = new ArrayList<>();
 
     public Emprestimo() {}
 
@@ -44,14 +44,14 @@ public class Emprestimo {
                       LocalDate dataDevolucao,
                       long diasAtraso,
                       StatusEmprestimo statusEmprestimo,
-                      List<ItemEmprestimo> itemEmprestimo) {
+                      List<ItemEmprestimo> itens) {
         this.id = id;
         this.usuario = usuario;
         this.dataEmprestimo = dataEmprestimo;
         this.dataDevolucao = dataDevolucao;
         this.diasAtraso = diasAtraso;
         this.statusEmprestimo = statusEmprestimo;
-        this.itemEmprestimo = itemEmprestimo;
+        this.itens = itens;
     }
 
     public Long getId() {
@@ -103,11 +103,11 @@ public class Emprestimo {
     }
 
     public List<ItemEmprestimo> getItemEmprestimo() {
-        return itemEmprestimo;
+        return itens;
     }
 
     public void setItemEmprestimo(List<ItemEmprestimo> itemEmprestimo) {
-        this.itemEmprestimo = itemEmprestimo;
+        this.itens = itens;
     }
 
     @Override
@@ -119,7 +119,7 @@ public class Emprestimo {
                 ", dataDevolucao=" + dataDevolucao +
                 ", diasAtraso=" + diasAtraso +
                 ", statusEmprestimo=" + statusEmprestimo +
-                ", itemEmprestimo=" + itemEmprestimo +
+                ", itemEmprestimo=" + itens +
                 '}';
     }
 }
