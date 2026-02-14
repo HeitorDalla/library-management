@@ -1,32 +1,38 @@
 package com.heitor.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "itemEmprestimo")
 public class ItemEmprestimo {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
-    private Emprestimo id_emprestimo_item_emprestimo;
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "id_emprestimo", nullable = false)
+    private Emprestimo emprestimo;
 
-    @Column(name = "data_devolucao_item_emprestimo")
-    private Date dataDevolucao;
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "id_exemplar", nullable = false)
+    private Exemplar exemplar;
+
+    @Column(name = "data_devolucao_item_emprestimo", nullable = false)
+    private LocalDate dataDevolucao;
 
     public ItemEmprestimo() {}
 
     public ItemEmprestimo(Long id,
-                          Emprestimo id_emprestimo_item_emprestimo,
-                          Date dataDevolucao) {
+                          Emprestimo emprestimo,
+                          Exemplar exemplar,
+                          LocalDate dataDevolucao) {
         this.id = id;
-        this.id_emprestimo_item_emprestimo = id_emprestimo_item_emprestimo;
+        this.emprestimo = emprestimo;
+        this.exemplar = exemplar;
         this.dataDevolucao = dataDevolucao;
     }
 
@@ -38,19 +44,27 @@ public class ItemEmprestimo {
         this.id = id;
     }
 
-    public Emprestimo getId_emprestimo_item_emprestimo() {
-        return id_emprestimo_item_emprestimo;
+    public Emprestimo getEmprestimo() {
+        return emprestimo;
     }
 
-    public void setId_emprestimo_item_emprestimo(Emprestimo id_emprestimo_item_emprestimo) {
-        this.id_emprestimo_item_emprestimo = id_emprestimo_item_emprestimo;
+    public void setEmprestimo(Emprestimo emprestimo) {
+        this.emprestimo = emprestimo;
     }
 
-    public Date getDataDevolucao() {
+    public Exemplar getExemplar() {
+        return exemplar;
+    }
+
+    public void setExemplar(Exemplar exemplar) {
+        this.exemplar = exemplar;
+    }
+
+    public LocalDate getDataDevolucao() {
         return dataDevolucao;
     }
 
-    public void setDataDevolucao(Date dataDevolucao) {
+    public void setDataDevolucao(LocalDate dataDevolucao) {
         this.dataDevolucao = dataDevolucao;
     }
 
@@ -58,7 +72,8 @@ public class ItemEmprestimo {
     public String toString() {
         return "ItemEmprestimo{" +
                 "id=" + id +
-                ", id_emprestimo_item_emprestimo=" + id_emprestimo_item_emprestimo +
+                ", emprestimo=" + emprestimo +
+                ", exemplar=" + exemplar +
                 ", dataDevolucao=" + dataDevolucao +
                 '}';
     }
