@@ -4,6 +4,7 @@ import com.heitor.enumerate.StatusEmprestimo;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -15,23 +16,25 @@ public class Emprestimo {
     @Column(name = "id")
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "id_usuario")
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "id_usuario", nullable = false)
     private Usuario usuario;
 
-    @Column(name = "data_emprestimo")
+    @Column(name = "data_emprestimo", nullable = false)
     private LocalDate dataEmprestimo;
 
-    @Column(name = "data_devolucao_emprestimo")
+    @Column(name = "data_devolucao_emprestimo", nullable = false)
     private LocalDate dataDevolucao;
 
     @Transient // anotacao para fazer o JPA ignorar a persistencia no banco de dados, mas util para regras de negoico
     private long diasAtraso;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status_emprestimo", nullable = false)
     private StatusEmprestimo statusEmprestimo;
 
-    @OneToMany(mappedBy = "emprestimo")
-    private List<ItemEmprestimo> itemEmprestimo;
+    @OneToMany(mappedBy = "emprestimo", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ItemEmprestimo> itemEmprestimo = new ArrayList<>();
 
     public Emprestimo() {}
 
