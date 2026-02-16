@@ -6,7 +6,7 @@
         <property name="hibernate.connection.username">root</property>
         <property name="hibernate.connection.password">12345678</property>
 
-        <property name="hibernate.hbm2ddl.auto">create</property> <!-- cria uma tabela se nao existir, e se existir, nao cria duplicata -->
+        <property name="hibernate.hbm2ddl.auto">update</property> <!-- cria uma tabela se nao existir, e se existir, nao cria duplicata -->
             <!-- create - vai deletar se a tabela ja existir e criar ela de novo (vai perder todos os dados) -->
             <!-- update - vai criar as tabelas se nao existirem e atualiza as colunas sem apagar os dados -->
         

@@ -1,56 +1,50 @@
 package com.heitor;
 
-import com.heitor.model.Emprestimo;
 import com.heitor.model.Endereco;
-import com.heitor.model.Usuario;
-
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
-import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.query.Query;
 
-import java.time.LocalDate;
+import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        Endereco endereco = new Endereco();
-        endereco.setBairro("Burle max");
-        endereco.setEstado("Parana");
-
-        Usuario usuario = new Usuario();
-        usuario.setEmail("teste@gmail.com");
-        usuario.setTelefone("4395686840");
-        usuario.setNome("Heitor mito");
-        usuario.setEndereco(endereco);
-
-        Emprestimo emprestimo = new Emprestimo();
-        emprestimo.setDataEmprestimo(LocalDate.of(2020, 5, 1));
-        emprestimo.setDataDevolucao(LocalDate.of(2020, 5, 5));
-        emprestimo.setUsuario(usuario);
-
         SessionFactory sf = new Configuration()
                 .addAnnotatedClass(com.heitor.model.Usuario.class)
                 .addAnnotatedClass(com.heitor.model.Endereco.class)
                 .addAnnotatedClass(com.heitor.model.Emprestimo.class)
+                .addAnnotatedClass(com.heitor.model.Reserva.class)
+                .addAnnotatedClass(com.heitor.model.Exemplar.class)
+                .addAnnotatedClass(com.heitor.model.ItemEmprestimo.class)
+                .addAnnotatedClass(com.heitor.model.Multa.class)
+                .addAnnotatedClass(com.heitor.model.Livro.class)
+                .addAnnotatedClass(com.heitor.model.LivroAutor.class)
+                .addAnnotatedClass(com.heitor.model.LivroCategoria.class)
+                .addAnnotatedClass(com.heitor.model.Categoria.class)
+                .addAnnotatedClass(com.heitor.model.Autor.class)
+                .addAnnotatedClass(com.heitor.model.Editora.class)
                 .configure()
                 .buildSessionFactory();
 
         Session session = sf.openSession();
 
-        Transaction transaction = session.beginTransaction();
+        String estado = "PR";
+        int id = 1;
 
-        session.persist(endereco);
-        session.persist(usuario);
-        session.persist(emprestimo);
+        Query query2 = session.createQuery("select logradouro, cidade from Endereco where id = ?1 and estado = ?2");
 
-        transaction.commit();
+        query2.setParameter(1, id);
+        query2.setParameter(2, estado);
+
+        List<Endereco> enderecos = query2.getResultList(); // `List<Endereco>` e usado pois tem apenas 1 coluna
+        List<Object[]> logradouroCiddade = query2.getResultList(); // `List<Object[]>` e usados pois tem varias colunas
+
+        System.out.println("Consulta realizada");
+        System.out.println(logradouroCiddade);
 
         session.close();
         sf.close();
-
-        System.out.println(usuario);
-        System.out.println(endereco);
-        System.out.println(emprestimo);
     }
 }
