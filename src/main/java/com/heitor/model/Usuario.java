@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+// @Cacheable  // anotacao para a implementacao do cache nivel 2 do hibernate
 @Table(name = "usuario")
 public class Usuario {
 
